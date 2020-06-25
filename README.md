@@ -9,4 +9,4 @@ CREATE TABLE Synonyms (
     Synonyms varchar(max),
 );
 ```
-After that change connection string in appsettings.json file
+After runing the script, change connection string in appsettings.json file
