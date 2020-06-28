@@ -7,6 +7,6 @@ namespace AwesomeSynonymsManagerApi.SynonymsManagement.Repositories
     public interface IWordRepository
     {
         Task<IEnumerable<Word>> GetWords();
-        Task InsertWord(Word word);
+        Task InsertWord(IEnumerable<Word> words);
     }
 }

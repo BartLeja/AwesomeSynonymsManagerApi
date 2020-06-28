@@ -21,12 +21,12 @@ namespace AwesomeSynonymsManagerApi.SynonymsManagement.Repositories
             return await connection.QueryAsync<Word>("SELECT * FROM [SynonymsManagerDB].[dbo].[Synonyms]");
         }
 
-        public async Task InsertWord(Word word)
+        public async Task InsertWord(IEnumerable<Word> words)
         {
             using var connection = _conn.GetOpenConnection();
             await connection.ExecuteAsync("INSERT INTO  " +
                                           "[SynonymsManagerDB].[dbo].[Synonyms] " +
-                                          "(Term,Synonyms) VALUES (@Term,@Synonyms)", word);
+                                          "(Term,Synonyms) VALUES (@Term,@Synonyms)", words);
         }
     }
 }

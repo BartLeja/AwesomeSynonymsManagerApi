@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeSynonymsManagerApi.SynonymsManagement.Dtos;
@@ -19,8 +20,14 @@ namespace AwesomeSynonymsManagerApi.SynonymsManagement.Services
 
         public async Task InsertWord(WordDto wordDto)
         {
+            var words = new List<Word>();
             var word = _mapper.Map<Word>(wordDto);
-            await _wordRepository.InsertWord(word);
+            words.Add(word);
+
+            var wordsFromSynonyms =  wordDto.Synonyms.Select(s => new Word(){Term = s, Synonyms = wordDto.Term });
+            words.AddRange(wordsFromSynonyms);
+
+            await _wordRepository.InsertWord(words);
         }
 
         public async Task<IEnumerable<WordDto>> GetWords()
